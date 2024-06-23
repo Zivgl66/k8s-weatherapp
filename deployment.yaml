@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: zivgl66/pr-repo:weather-app
+          image: zivgl66/weather-app:latest
           ports:
             - containerPort: 5000
           env:
