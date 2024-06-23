@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-app
+  labels:
+    app: weather-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: weather-app
+  template:
+    metadata:
+      labels:
+        app: weather-app
+    spec:
+      containers:
+        - name: weather-app
+          image: zivgl66/pr-repo:weather-app
+          ports:
+            - containerPort: 5000
+          env:
+          - name: BG_COLOR
+            valueFrom:
+              configMapKeyRef:
+                name: env-config-green  # Name of your ConfigMap
+                key: BG_COLOR     # Key within the ConfigMap
+      imagePullSecrets:
+      - name: docker-hub-cred
+
+
+
