@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: zivgl66/weatherapp:6c5b6748b06580bc233d42e03a48448a112106f6
+          image: zivgl66/weatherapp:7c7a46d797cc2edc6df5050c1d3de30a102eecba
           ports:
             - containerPort: 5000
           env:
