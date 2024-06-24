@@ -16,17 +16,14 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: zivgl66/weather-app:latest
+          image: zivgl66@gmail.com/weatherapp:ee93f8d7b83e7c2850679095340daf6d51b7e72d
           ports:
             - containerPort: 5000
           env:
-          - name: BG_COLOR
-            valueFrom:
-              configMapKeyRef:
-                name: env-config-green  # Name of your ConfigMap
-                key: BG_COLOR     # Key within the ConfigMap
+            - name: BG_COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config-green # Name of your ConfigMap
+                  key: BG_COLOR # Key within the ConfigMap
       imagePullSecrets:
-      - name: docker-hub-cred
-
-
-
+        - name: docker-hub-cred
