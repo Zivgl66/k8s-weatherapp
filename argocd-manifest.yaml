@@ -8,8 +8,8 @@ spec:
 
   source:
     repoURL: https://github.com/Zivgl66/k8s-weatherapp
-    targetRevision: HEAD
-    path: manifest
+    targetRevision: main
+    path: ./
   destination:
     server: https://kubernetes.default.svc
     namespace: myapp
