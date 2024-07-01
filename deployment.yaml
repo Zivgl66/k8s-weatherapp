@@ -26,4 +26,4 @@ spec:
                   name: env-config-green
                   key: BG_COLOR
       imagePullSecrets: 
-      - name: registry-credentials
+      - name: regcred
