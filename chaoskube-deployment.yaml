@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaoskube
+  namespace: chaoskube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaoskube
+  template:
+    metadata:
+      labels:
+        app: chaoskube
+    spec:
+      containers:
+        - name: chaoskube
+          image: linki/chaoskube:latest
+          args:
+            - --interval=15m
+            - --namespace=default
+            - --labels=app=weather-app
