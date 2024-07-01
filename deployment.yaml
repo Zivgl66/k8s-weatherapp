@@ -13,6 +13,11 @@ spec:
     metadata:
       labels:
         app: weather-app
+      annotations:
+        kube-monkey/enabled: "enabled"
+        kube-monkey/identifier: "weather-app"
+        kube-monkey/kill-mode: "random"
+        kube-monkey/kill-value: "100"
     spec:
       containers:
         - name: weather-app
