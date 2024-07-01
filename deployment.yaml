@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: weather-app
-          image: zivgl66/weatherapp:620239511495df3e5572effd8246bebc8fca3a52
+          image: registry.gitlab.com/zivgl66/weather-app:latest
           ports:
             - containerPort: 5000
           env:
@@ -25,5 +25,5 @@ spec:
                 configMapKeyRef:
                   name: env-config-green
                   key: BG_COLOR
-      imagePullSecrets:
-        - name: docker-hub-cred
+      imagePullSecrets: 
+      - name: registry-credentials
