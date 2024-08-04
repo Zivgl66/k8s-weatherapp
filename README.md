@@ -1,22 +1,33 @@
 # k8s-weatherapp
 
-This repository contains a weather application designed to run on a Kubernetes (k8s) cluster. The app provides weather data to users by integrating with external weather APIs.
+This repository is dedicated to the deployment and management of a weather application on a Kubernetes (k8s) cluster using ArgoCD. It serves as a configuration source for ArgoCD to continuously monitor and manage the application's deployment state.
 
-## Features
+## Overview
 
-- **Weather Data**: Provides real-time weather information using external APIs.
-- **Kubernetes Deployment**: Deployed and managed within a Kubernetes cluster for scalability and reliability.
-- **Microservices Architecture**: Designed with a microservices architecture for flexibility and ease of maintenance.
+The k8s-weatherapp repository is set up for the purpose of demonstrating and utilizing GitOps principles with ArgoCD. The application, designed as a weather app, is managed through Kubernetes manifests and Helm charts, enabling automated deployment and monitoring.
+
+## ArgoCD Integration
+
+ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes. This repository contains the necessary manifests and configurations for ArgoCD to:
+
+- **Automate Deployments**: ArgoCD pulls the latest changes from this repository and deploys them to the Kubernetes cluster.
+- **Monitor Application State**: Continuously monitors the live state of the weather app against the desired state defined in the Git repository.
+- **Rollback and Rollforward**: Provides the ability to easily rollback to previous versions or apply newer changes as defined in the Git history.
+
+## Repository Structure
+
+- **`k8s/`**: Contains the Kubernetes manifests for deploying the weather application.
+- **`helm/`**: If applicable, contains Helm charts used for the deployment.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Docker
 - Kubernetes cluster (Minikube, GKE, EKS, etc.)
+- ArgoCD installed and configured in your Kubernetes cluster
 - Kubectl configured to access your Kubernetes cluster
 
-### Setup
+### ArgoCD Setup
 
 1. **Clone the repository**:
    ```bash
@@ -24,23 +35,25 @@ This repository contains a weather application designed to run on a Kubernetes (
    cd k8s-weatherapp
    ```
 
-2. **Build Docker images**:
-   Build the Docker images for the application components.
+2. **Register the application with ArgoCD**:
+   Register this repository with ArgoCD to start monitoring and managing the application.
    ```bash
-   docker build -t weatherapp-api ./api
-   docker build -t weatherapp-frontend ./frontend
+   argocd app create weatherapp \
+     --repo https://github.com/Zivgl66/k8s-weatherapp.git \
+     --path k8s \
+     --dest-server https://kubernetes.default.svc \
+     --dest-namespace default
    ```
 
-3. **Deploy to Kubernetes**:
-   Apply the Kubernetes manifests to deploy the application to your cluster.
+3. **Sync the application**:
+   Sync the application to deploy the current state defined in the repository.
    ```bash
-   kubectl apply -f k8s/deployment.yaml
-   kubectl apply -f k8s/service.yaml
+   argocd app sync weatherapp
    ```
 
-### Usage
+## Usage
 
-Once deployed, access the weather app via the service's external IP or load balancer. The frontend will provide an interface for querying weather data.
+Once ArgoCD is set up, it will continuously monitor this repository for changes and automatically update the application deployment accordingly. You can access the ArgoCD dashboard to manage and observe the application's state.
 
 ## Contributing
 
@@ -55,6 +68,5 @@ Contributions are welcome! Please follow these steps to contribute:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
-Feel free to modify any sections to better suit your project's specifics or add any additional details you think are necessary.
+This version focuses solely on the use of ArgoCD for the deployment and management of the weather app.
